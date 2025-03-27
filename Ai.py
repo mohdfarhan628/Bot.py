@@ -2,10 +2,10 @@ import openai
 from telethon import TelegramClient, events
 
 # OpenAI API Key
-openai.api_key = "your_openai_api_key"
+openai.api_key = os.getenv("OPENAI_API_KEY")  
 
-api_id = 1234567  
-api_hash = "your_api_hash"
+api_id = int(os.getenv("API_ID"))  
+api_hash = os.getenv("API_HASH")
 
 client = TelegramClient("my_session", api_id, api_hash)
 
