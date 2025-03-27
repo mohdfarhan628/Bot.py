@@ -12,14 +12,15 @@ openai.api_key = OPENAI_API_KEY
 # Telegram API Credentials
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # बॉट टोकन के लिए
 
-if not API_ID or not API_HASH:
-    raise ValueError("⚠️ API_ID or API_HASH is missing. Please set them in environment variables.")
+if not API_ID or not API_HASH or not BOT_TOKEN:
+    raise ValueError("⚠️ API_ID, API_HASH, or BOT_TOKEN is missing. Please set them in environment variables.")
 
 API_ID = int(API_ID)
 
-# Initializing Telegram Client
-client = TelegramClient("my_session", API_ID, API_HASH)
+# Initializing Telegram Client (बॉट मोड में)
+client = TelegramClient("bot_session", API_ID, API_HASH).start(bot_token=BOT_TOKEN)
 
 @client.on(events.NewMessage(incoming=True))
 async def handler(event):
@@ -27,7 +28,7 @@ async def handler(event):
     user_message = event.message.message.strip()
 
     if not user_message:
-        return  
+        return  # खाली मैसेज को ignore करें
 
     print(f"📩 {sender.first_name}: {user_message}")
 
@@ -50,5 +51,4 @@ async def handler(event):
         await event.reply(error_msg)
 
 print("✅ AI Auto Reply Bot Started...")
-client.start()
 client.run_until_disconnected()
