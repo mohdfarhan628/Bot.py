@@ -6,7 +6,7 @@ import os
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Telegram Bot Token
-BOT_TOKEN = os.getenv("BOT_TOKEN")  # Render में .env set file
+BOT_TOKEN = os.getenv("7740037319:AAEz_4UBuY04U3FcgBKsQKJsTdz-14JWd-A")  # Render में .env set file
 
 # Telethon Client (Bot Session)
 client = TelegramClient("bot_session", api_id=0, api_hash="", bot_token=BOT_TOKEN)
